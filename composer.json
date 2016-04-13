@@ -1,0 +1,27 @@
+{
+    "name": "oh-sky/line-trialbot",
+    "description": "Requests and Response Handler for Line TrialBot API",
+    "type": "library",
+    "require": {
+        "php": ">=5.5",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "oh-sky",
+            "email": "yoshihiro.ohsuka@gmail.com"
+        }
+    ],
+    "keywords": ["LINE", "Trial Bot", "trial-bot"],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "OhSky\\LineTrialBot\\": "src"
+        }
+    },
+    "include-path": ["src/"]
+}
