@@ -164,7 +164,7 @@ class Sender
      * @param array $content
      * @return $this|mixed
      */
-    public function sendMessage($to, $content)
+    protected function sendMessage($to, $content)
     {
         $this->response = $this->guzzleClient->request('POST', self::ENDPOINT_EVENTS, [
             'headers' => $this->createRequestHeaderArray(),
