@@ -160,15 +160,15 @@ class Sender
     }
 
     /**
-     * @param array|string $to
+     * @param array|string $sendTo
      * @param array $content
      * @return $this|mixed
      */
-    protected function sendMessage($to, $content)
+    protected function sendMessage($sendTo, $content)
     {
         $this->response = $this->guzzleClient->request('POST', self::ENDPOINT_EVENTS, [
             'headers' => $this->createRequestHeaderArray(),
-            'body' => $this->createRequestBodyJson($to, $content),
+            'body' => $this->createRequestBodyJson($sendTo, $content),
         ]);
         return $this;
     }
@@ -187,17 +187,17 @@ class Sender
     }
 
     /**
-     * @param array|string $to
+     * @param array|string $sendTo
      * @param array $content
      * @return string json
      */
-    protected function createRequestBodyJson($to, $content)
+    protected function createRequestBodyJson($sendTo, $content)
     {
-        if (!is_array($to)) {
-            $to = [$to];
+        if (!is_array($sendTo)) {
+            $sendTo = [$sendTo];
         }
         return json_encode([
-                'to' => $to,
+                'to' => $sendTo,
                 'toChannel' => self::TO_CHANNEL,
                 'eventType' => self::EVENT_TYPE,
                 'content' => $content,
