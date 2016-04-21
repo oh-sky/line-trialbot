@@ -176,7 +176,7 @@ class Sender
     /**
      * @return array
      */
-    private function createRequestHeaderArray()
+    protected function createRequestHeaderArray()
     {
         return [
             'Content-Type' => 'application/json; charset=UTF-8',
@@ -191,7 +191,7 @@ class Sender
      * @param array $content
      * @return string json
      */
-    private function createRequestBodyJson($to, $content)
+    protected function createRequestBodyJson($to, $content)
     {
         if (!is_array($to)) {
             $to = [$to];
