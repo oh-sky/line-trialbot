@@ -2,7 +2,7 @@
 /**
  * @see http://docs.guzzlephp.org/en/latest/testing.html
  */
-namespace OhSky\LineTrialBot\Tests;
+namespace OhSky\LineTrialBot\tests;
 
 use PHPUnit_Framework_TestCase;
 use OhSky\LineTrialBot\Sender;
