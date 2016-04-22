@@ -8,13 +8,16 @@
 
 namespace OhSky\LineTrialBot;
 
-
-class SideciTest{
+class SideciTest
+{
 
     public $name='';
 
-    public function testFunction() {
-        if(false)return true;
-		return false;
+    public function testFunction()
+    {
+        if (false) {
+            return true;
+        }
+        return false;
     }
 }
