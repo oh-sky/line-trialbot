@@ -163,6 +163,8 @@ class Sender
      * @param array|string $sendTo
      * @param array $content
      * @return $this|mixed
+     * @throws \GuzzleHttp\Exception\ClientException
+     * @throws \GuzzleHttp\Exception\ServerException
      */
     protected function sendMessage($sendTo, $content)
     {

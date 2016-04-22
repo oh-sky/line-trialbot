@@ -235,6 +235,50 @@ class SenderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @expectedException \GuzzleHttp\Exception\ClientException
+     * @expectedExceptionCode 403
+     */
+    public function testErrorResponses403()
+    {
+        $container = [];
+        $sender = $this->generateSender(
+            $this->generateHandlerStack(
+                $container,
+                $this->generateMockHandlerToResponseError(403)
+            )
+        );
+
+        $sender->sendSticker(
+            [self::TO_USER_ID_FOR_TEST],
+            'sticker_id',
+            'sticker_package_id',
+            'sticker_version'
+        );
+    }
+
+    /**
+     * @expectedException \GuzzleHttp\Exception\ServerException
+     * @expectedExceptionCode 500
+     */
+    public function testErrorResponses500()
+    {
+        $container = [];
+        $sender = $this->generateSender(
+            $this->generateHandlerStack(
+                $container,
+                $this->generateMockHandlerToResponseError(500)
+            )
+        );
+
+        $sender->sendSticker(
+            [self::TO_USER_ID_FOR_TEST],
+            'sticker_id',
+            'sticker_package_id',
+            'sticker_version'
+        );
+    }
+
+    /**
      * @return MockHandler
      */
     private function generateMockHandler()
@@ -245,6 +289,17 @@ class SenderTest extends PHPUnit_Framework_TestCase
                 ['Content-Length' => strlen(self::RESPONSE_BODY_FOR_MOCK)],
                 self::RESPONSE_BODY_FOR_MOCK
             ),
+        ]);
+    }
+
+    /**
+     * @param  integer $statusCode
+     * @return MockHandler
+     */
+    private function generateMockHandlerToResponseError($statusCode)
+    {
+        return new MockHandler([
+                new Response($statusCode),
         ]);
     }
 
