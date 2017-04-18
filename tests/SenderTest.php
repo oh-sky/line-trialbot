@@ -2,7 +2,7 @@
 /**
  * @see http://docs.guzzlephp.org/en/latest/testing.html
  */
-namespace OhSky\LineTrialBot\Tests;
+namespace OhSky\LineTrialBot\tests;
 
 use PHPUnit_Framework_TestCase;
 use OhSky\LineTrialBot\Sender;
@@ -234,6 +234,31 @@ class SenderTest extends PHPUnit_Framework_TestCase
         $this->assertCorrectRequestBody($request, json_encode($expectedBody));
     }
 
+    public function testErrorResponses()
+    {
+        $container = [];
+        $sender = $this->generateSender(
+            $this->generateHandlerStack(
+                $container,
+                $this->generateMockHandlerToResponseErrors()
+            )
+        );
+
+        $sender->sendSticker(
+                [self::TO_USER_ID_FOR_TEST],
+                'sticker_id',
+                'sticker_package_id',
+                'sticker_version'
+            )->getResponse();
+
+        $sender->sendSticker(
+                [self::TO_USER_ID_FOR_TEST],
+                'sticker_id',
+                'sticker_package_id',
+                'sticker_version'
+            )->getResponse();
+    }
+
     /**
      * @expectedException \GuzzleHttp\Exception\ClientException
      * @expectedExceptionCode 403
@@ -289,6 +314,14 @@ class SenderTest extends PHPUnit_Framework_TestCase
                 ['Content-Length' => strlen(self::RESPONSE_BODY_FOR_MOCK)],
                 self::RESPONSE_BODY_FOR_MOCK
             ),
+        ]);
+    }
+
+    private function generateMockHandlerToResponseErrors()
+    {
+        return new MockHandler([
+            new Response(403),
+            new Response(500),
         ]);
     }
 
